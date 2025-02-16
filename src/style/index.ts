@@ -1,13 +1,14 @@
+/* eslint import/no-unresolved: [2, { ignore: ['react-native'] }] */
 import { StyleSheet, Dimensions } from 'react-native';
 
-const { width } = Dimensions.get('window');
-export { width };
+export const { width } = Dimensions.get('window');
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   wrapper: {
     marginVertical: 5,
     alignSelf: 'center',
   },
+  // Circular Container
   circleWrapper: {
     overflow: 'hidden',
   },
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
     zIndex: 10,
   },
   image: {
-    resizeMode: 'stretch' as const, // Ensure correct type
+    resizeMode: 'stretch',
     height: width - 20,
     width: width - 20,
   },
@@ -51,21 +52,10 @@ export const styles = StyleSheet.create({
   },
   label: {
     fontSize: 25,
-    fontWeight: 'bold' as const,
+    fontWeight: 'bold',
   },
   labelNote: {
     fontSize: 16,
-    fontWeight: 'bold' as const,
-  },
-  imageStyle: {
-    resizeMode: 'contain', // Ensures the image maintains its aspect ratio
-    position: 'absolute', // Positions the needle correctly
-    left: '50%', // Centers it horizontally
-    top: '50%', // Centers it vertically
-    transform: [{ translateX: -50 }, { translateY: -50 }], // Adjusts positioning
+    fontWeight: 'bold',
   },
 });
-
-export default styles;
-
-
