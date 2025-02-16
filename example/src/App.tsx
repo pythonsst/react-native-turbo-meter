@@ -1,12 +1,20 @@
-import { multiply } from 'react-native-turbo-meter';
 import { Text, View, StyleSheet } from 'react-native';
-
-const result = multiply(3, 7);
+import TurboMeter from 'react-native-turbo-meter'; // Ensure this is the correct import
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <TurboMeter
+        value={50}
+        minValue={0}
+        maxValue={100}
+        labels={[
+          { name: 'Weak', labelColor: '#ff0000', activeBarColor: '#ff0000' },
+          { name: 'Strong', labelColor: '#00ff00', activeBarColor: '#00ff00' },
+        ]}
+        needleImage={undefined}
+      />
+      <Text>React Native Turbo Meter</Text>
     </View>
   );
 }

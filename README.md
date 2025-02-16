@@ -12,11 +12,12 @@ npm install react-native-turbo-meter
 
 
 ```js
-import { multiply } from 'react-native-turbo-meter';
+import TurboMeter from 'react-native-turbo-meter';
 
-// ...
+// Example usage
+<TurboMeter value={50} maxValue={100} />
 
-const result = await multiply(3, 7);
+
 ```
 
 
