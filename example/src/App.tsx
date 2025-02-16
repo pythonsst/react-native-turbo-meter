@@ -1,19 +1,26 @@
 import { Text, View, StyleSheet } from 'react-native';
-import TurboMeter from 'react-native-turbo-meter'; // Ensure this is the correct import
+import Speedometer from 'react-native-turbo-meter';
+
+const defaultLabels = [
+  { name: 'Too Slow', labelColor: '#ff2900', activeBarColor: '#ff2900' },
+  { name: 'Very Slow', labelColor: '#ff5400', activeBarColor: '#ff5400' },
+  { name: 'Slow', labelColor: '#f4ab44', activeBarColor: '#f4ab44' },
+  { name: 'Normal', labelColor: '#f2cf1f', activeBarColor: '#f2cf1f' },
+  { name: 'Fast', labelColor: '#14eb6e', activeBarColor: '#14eb6e' },
+  { name: 'Unbelievably Fast', labelColor: '#00ff6b', activeBarColor: '#00ff6b' },
+];
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <TurboMeter
-        value={50}
+      <Speedometer
+        value={75}
         minValue={0}
         maxValue={100}
-        labels={[
-          { name: 'Weak', labelColor: '#ff0000', activeBarColor: '#ff0000' },
-          { name: 'Strong', labelColor: '#00ff00', activeBarColor: '#00ff00' },
-        ]}
-        needleImage={undefined}
+        labels={defaultLabels}
       />
+
       <Text>React Native Turbo Meter</Text>
     </View>
   );
