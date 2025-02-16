@@ -1,6 +1,6 @@
 {
   "name": "react-native-turbo-meter",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A customizable and lightweight speedometer (gauge) component for React Native, built with TypeScript and SVG. Perfect for fintech apps, dashboards, and performance tracking",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
