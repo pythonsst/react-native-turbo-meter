@@ -22,7 +22,7 @@ type SpeedometerProps = {
   maxValue?: number;
   labels?: Label[];
   easeDuration?: number;
-  needleImage?: any;
+  // Remove needleImage prop if you want it fully static
   useNativeDriver?: boolean;
 };
 
@@ -42,7 +42,6 @@ const Speedometer: React.FC<SpeedometerProps> = ({
   maxValue = 100,
   labels = defaultLabels,
   easeDuration = 500,
-  needleImage = require('../images/speedometer-needle'),
   useNativeDriver = true,
 }) => {
   const limitedValue = limitValue(value, minValue, maxValue, 0);
@@ -91,7 +90,8 @@ const Speedometer: React.FC<SpeedometerProps> = ({
 
       {/* Needle */}
       <Animated.Image
-        source={needleImage}
+        // Using a remote image for testing purposes
+        source={require('./images/needle.png')}
         style={[
           styles.needle,
           {
@@ -99,7 +99,14 @@ const Speedometer: React.FC<SpeedometerProps> = ({
             height: validatedSize * 0.4,
             top: validatedSize * 0.1,
             left: validatedSize * 0.45,
-            transform: [{ rotate: rotation.interpolate({ inputRange: [-90, 90], outputRange: ['-90deg', '90deg'] }) }],
+            transform: [
+              {
+                rotate: rotation.interpolate({
+                  inputRange: [-90, 90],
+                  outputRange: ['-90deg', '90deg'],
+                }),
+              },
+            ],
           },
         ]}
         resizeMode="contain"

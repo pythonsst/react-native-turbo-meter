@@ -18,6 +18,7 @@
     }
   },
   "files": [
+    "images",
     "src",
     "lib",
     "android",
@@ -38,12 +39,13 @@
   ],
   "scripts": {
     "build": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "prepare": "bob build && yarn copy-images",
+    "copy-images": "copyfiles -u 1 \"src/images/*\" lib/commonjs/images",
     "example": "yarn workspace react-native-turbo-meter-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli lib",
-    "prepare": "bob build",
     "release": "release-it"
   },
   "keywords": [
@@ -81,6 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "@typescript-eslint/parser": "^8.24.0",
     "commitlint": "^17.0.2",
+    "copyfiles": "^2.4.1",
     "del-cli": "^5.1.0",
     "eslint": "^9.20.1",
     "eslint-config-prettier": "^10.0.1",
