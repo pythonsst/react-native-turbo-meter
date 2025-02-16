@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Image, Animated, Easing, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Animated, Easing, Text, StyleSheet, Dimensions, Image } from 'react-native';
 
 // Import utility functions
-import {calculateDegreeFromLabels} from './utils/calculate-degree-from-labels';
-import {calculateLabelFromValue} from './utils/calculate-label-from-value';
-import {limitValue} from './utils/limit-value';
-import {validateSize} from './utils/validate-size';
+import { calculateDegreeFromLabels } from './utils/calculate-degree-from-labels';
+import { calculateLabelFromValue } from './utils/calculate-label-from-value';
+import { limitValue } from './utils/limit-value';
+import { validateSize } from './utils/validate-size';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -63,6 +63,33 @@ const Speedometer: React.FC<SpeedometerProps> = ({
 
   return (
     <View style={[styles.container, { width: validatedSize, height: validatedSize / 2 }]}>
+      {/* Background Color Segments */}
+      <View style={[styles.outerCircle, { width: validatedSize, height: validatedSize / 2 }]}>
+        {labels.map((level, index) => {
+          const circleDegree = 90 + index * perLevelDegree;
+          return (
+            <View
+              key={level.name}
+              style={[
+                styles.halfCircle,
+                {
+                  backgroundColor: level.activeBarColor,
+                  width: validatedSize / 2,
+                  height: validatedSize,
+                  borderRadius: validatedSize / 2,
+                  transform: [
+                    { translateX: validatedSize / 4 },
+                    { rotate: `${circleDegree}deg` },
+                    { translateX: -(validatedSize / 4) },
+                  ],
+                },
+              ]}
+            />
+          );
+        })}
+      </View>
+
+      {/* Needle */}
       <Animated.Image
         source={needleImage}
         style={[
@@ -77,7 +104,15 @@ const Speedometer: React.FC<SpeedometerProps> = ({
         ]}
         resizeMode="contain"
       />
-      <Text style={[styles.label, { color: label.labelColor }]}>{label.name}</Text>
+
+      {/* Inner Circle */}
+      <View style={[styles.innerCircle, { width: validatedSize * 0.6, height: (validatedSize / 2) * 0.6 }]} />
+
+      {/* Value & Label */}
+      <View style={styles.labelWrapper}>
+        <Text style={styles.valueText}>{limitedValue}</Text>
+        <Text style={[styles.label, { color: label.labelColor }]}>{label.name}</Text>
+      </View>
     </View>
   );
 };
@@ -88,11 +123,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
   },
+  outerCircle: {
+    position: 'absolute',
+    top: 0,
+    borderTopLeftRadius: 9999,
+    borderTopRightRadius: 9999,
+    overflow: 'hidden',
+  },
+  halfCircle: {
+    position: 'absolute',
+    top: 0,
+  },
   needle: {
     position: 'absolute',
   },
+  innerCircle: {
+    position: 'absolute',
+    bottom: 0,
+    borderTopLeftRadius: 9999,
+    borderTopRightRadius: 9999,
+    backgroundColor: '#FFF',
+  },
+  labelWrapper: {
+    position: 'absolute',
+    bottom: 20,
+    alignItems: 'center',
+  },
+  valueText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
   label: {
-    marginTop: 10,
     fontSize: 16,
     fontWeight: 'bold',
   },
